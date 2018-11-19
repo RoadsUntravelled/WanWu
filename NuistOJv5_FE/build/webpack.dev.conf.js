@@ -45,7 +45,23 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     }
   },
-  plugins:entry_config.dev_plugins
+  plugins:[
+    new webpack.DefinePlugin({
+      'process.env': require('../config/dev.env')
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
+    new webpack.NoEmitOnErrorsPlugin(),
+    // https://github.com/ampedandwired/html-webpack-plugin
+    // copy custom static assets
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../static'),
+        to: config.dev.assetsSubDirectory,
+        ignore: ['.*']
+      }
+    ])
+  ].concat(entry_config.dev_plugins),
 })
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || config.dev.port
