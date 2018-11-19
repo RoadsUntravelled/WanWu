@@ -9,7 +9,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 function getEntries () {
   const base = {
-    'app': ['./src/main.js']
+    'app': ['./src/pages/app/main.js'],
+    'login':['./src/pages/login/index.js']
   }
   if (process.env.USE_SENTRY === '1') {
     Object.keys(base).forEach(entry => {
@@ -30,7 +31,7 @@ Object.keys(entries).forEach(entry => {
 
 module.exports = {
 	entries:entries,
-  dev_plugins: [
+  dev_plugins:[
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')
     }),
@@ -39,8 +40,15 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
+      filename: config.build.index,
+      template: config.build.template,
+      chunks: ['app'],
+      inject: true
+    }),
+    new HtmlWebpackPlugin({
+      filename: config.build.loginIndex,
+      template: config.build.loginTemplate,
+      chunks: ['login'],
       inject: true
     }),
     // copy custom static assets
@@ -55,7 +63,8 @@ module.exports = {
   prod_plugins:[
       new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks (module) {
+      chunks:['login','app'],
+      minChunks:2 /*(module) {
         // any required modules inside node_modules are extracted to vendor
         return (
           module.resource &&
@@ -64,13 +73,25 @@ module.exports = {
             path.join(__dirname, '../node_modules')
           ) === 0
         )
+      }*/
+    }),
+    new HtmlWebpackPlugin({
+      filename: config.build.loginIndex,
+      template: config.build.loginTemplate,
+      chunks: ['manifest', 'vendor', 'login'],
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
       }
     }),
     new HtmlWebpackPlugin({
-      filename: process.env.NODE_ENV === 'testing'
-        ? 'index.html'
-        : config.build.index,
-      template: 'index.html',
+      filename: config.build.index,
+      template: config.build.template,
+      chunks: ['manifest', 'vendor', 'app'],
       inject: true,
       minify: {
         removeComments: true,
@@ -83,4 +104,5 @@ module.exports = {
       chunksSortMode: 'dependency'
     }),
   ]
+
 }
