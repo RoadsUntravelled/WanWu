@@ -6,12 +6,16 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-
-function getEntries () {
-  const base = {
-    'app': ['./src/pages/app/main.js'],
-    'login':['./src/pages/login/index.js']
-  }
+const glob = require('glob')
+const PAGE_PATH = path.resolve(__dirname,'../src/pages')
+//配置多入口
+const entries = ()=>{
+  let entryFiles = glob.sync(PAGE_PATH + '/*/index.js')
+  let base = {} 
+  entryFiles.forEach((filePath) => {
+       const filename = filePath.substring(filePath.lastIndexOf('pages\/') + 6, filePath.lastIndexOf('\/'))
+       base[filename] = [filePath]
+   }) 
   if (process.env.USE_SENTRY === '1') {
     Object.keys(base).forEach(entry => {
       base[entry].push('./src/utils/sentry.js')
@@ -19,7 +23,6 @@ function getEntries () {
   }
   return base
 }
-const entries = getEntries()
 console.log("All entries: ")
 Object.keys(entries).forEach(entry => {
   console.log(entry)
@@ -28,10 +31,8 @@ Object.keys(entries).forEach(entry => {
   })
   console.log()
 })
-
-module.exports = {
-	entries:entries,
-  dev_plugins:[
+//配置dev入口插件
+const htmlPluginsOfDev=[
     new HtmlWebpackPlugin({
       filename: config.build.index,
       template: config.build.template,
@@ -44,9 +45,11 @@ module.exports = {
       chunks: ['login'],
       inject: true
     }),
-  ],
-  prod_plugins:[
-      new webpack.optimize.CommonsChunkPlugin({
+  ]
+
+//配置prod入口插件
+const htmlPluginsOfProd=[
+    new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       chunks:['login','app'],
       minChunks:2 /*(module) {
@@ -88,6 +91,10 @@ module.exports = {
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
-  ]
-
+]
+//出口
+module.exports = {
+  entries:entries,
+  dev_plugins:htmlPluginsOfDev,
+  prod_plugins:htmlPluginsOfProd
 }
