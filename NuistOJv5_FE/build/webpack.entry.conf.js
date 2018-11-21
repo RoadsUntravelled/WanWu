@@ -9,7 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const glob = require('glob')
 const PAGE_PATH = path.resolve(__dirname,'../src/pages')
 //配置多入口
-const entries = ()=>{
+const getEntries=()=>{
   let entryFiles = glob.sync(PAGE_PATH + '/*/index.js')
   let base = {} 
   entryFiles.forEach((filePath) => {
@@ -23,6 +23,7 @@ const entries = ()=>{
   }
   return base
 }
+const entries = getEntries()
 console.log("All entries: ")
 Object.keys(entries).forEach(entry => {
   console.log(entry)
@@ -32,27 +33,43 @@ Object.keys(entries).forEach(entry => {
   console.log()
 })
 //配置dev入口插件
-const htmlPluginsOfDev=[
-    new HtmlWebpackPlugin({
-      filename: config.build.index,
-      template: config.build.template,
-      chunks: ['app'],
+const gethtmlPluginsOfDev=()=>{
+  let entryHtml = glob.sync(PAGE_PATH + '/*/index.html')
+  let arr=[]
+  entryHtml.forEach((filePath) => {
+    let filename = filePath.substring(filePath.lastIndexOf('pages\/') + 6, filePath.lastIndexOf('\/'))
+    if(filename=='login'){
+    arr.push(new HtmlWebpackPlugin({
+      // 模板来源
+      template: path.resolve(__dirname,filePath),
+      // 文件名称
+      filename: path.resolve(__dirname,'../dist/index.html'),
+      // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
+      chunks: ['manifest', 'vendor', filename],
       inject: true
-    }),
-    new HtmlWebpackPlugin({
-      filename: config.build.loginIndex,
-      template: config.build.loginTemplate,
-      chunks: ['login'],
+    }))
+    }
+    else{
+    arr.push(new HtmlWebpackPlugin({
+      // 模板来源
+      template: path.resolve(__dirname,filePath),
+      // 文件名称
+      filename: path.resolve(__dirname,'../dist/'+filename + '/index.html'),
+      // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
+      chunks: ['manifest', 'vendor', filename],
       inject: true
-    }),
-  ]
-
+    }))
+    }
+  })
+  return arr
+}
+const htmlPluginsOfDev=gethtmlPluginsOfDev()
 //配置prod入口插件
-const htmlPluginsOfProd=[
-    new webpack.optimize.CommonsChunkPlugin({
+const gethtmlPluginsOfProd=()=>{
+  let commonChunks=new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      chunks:['login','app'],
-      minChunks:2 /*(module) {
+      chunks:[],
+      minChunks:0 /*(module) {
         // any required modules inside node_modules are extracted to vendor
         return (
           module.resource &&
@@ -62,11 +79,21 @@ const htmlPluginsOfProd=[
           ) === 0
         )
       }*/
-    }),
-    new HtmlWebpackPlugin({
-      filename: config.build.loginIndex,
-      template: config.build.loginTemplate,
-      chunks: ['manifest', 'vendor', 'login'],
+    })
+  let entryHtml = glob.sync(PAGE_PATH + '/*/index.html')
+  let arr=[]
+  entryHtml.forEach((filePath) => {
+    let filename = filePath.substring(filePath.lastIndexOf('pages\/') + 6, filePath.lastIndexOf('\/'))
+    commonChunks.selectedChunks.push(filename)
+    commonChunks.minChunks++;
+    if(filename=='login'){
+    arr.push(new HtmlWebpackPlugin({
+      // 模板来源
+      template: path.resolve(__dirname,filePath),
+      // 文件名称
+      filename: path.resolve(__dirname,'../dist/index.html'),
+      // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
+      chunks: ['manifest', 'vendor', filename],
       inject: true,
       minify: {
         removeComments: true,
@@ -75,11 +102,16 @@ const htmlPluginsOfProd=[
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       }
-    }),
-    new HtmlWebpackPlugin({
-      filename: config.build.index,
-      template: config.build.template,
-      chunks: ['manifest', 'vendor', 'app'],
+    }))
+    }
+    else{
+    arr.push(new HtmlWebpackPlugin({
+      // 模板来源
+      template: path.resolve(__dirname,filePath),
+      // 文件名称
+      filename: path.resolve(__dirname,'../dist/'+filename + '/index.html'),
+      // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
+      chunks: ['manifest', 'vendor', filename],
       inject: true,
       minify: {
         removeComments: true,
@@ -87,11 +119,14 @@ const htmlPluginsOfProd=[
         removeAttributeQuotes: true
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
-      },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
-]
+      }
+    }))
+    }
+  })
+  arr.push(commonChunks)
+  return arr
+}
+const htmlPluginsOfProd=gethtmlPluginsOfProd()
 //出口
 module.exports = {
   entries:entries,

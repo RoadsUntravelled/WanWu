@@ -75,14 +75,13 @@ module.exports = {
               如果 html-loader 不指定 attrs 参数，默认值是 img:src, 意味着会默认打包 <img> 标签的图片。
               这里我们加上 <link> 标签的 href 属性，用来打包入口 index.html 引入的 favicon.png 文件。
               */
-              attrs: ['img:src', 'link:href']
+              attrs: ['img:src', 'link:href','body:background']
             }
           }
         ]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        //exclude: /logo\.png$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
