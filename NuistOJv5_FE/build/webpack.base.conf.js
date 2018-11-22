@@ -5,6 +5,8 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const webpack = require('webpack')
 const entry_config = require('./webpack.entry.conf')
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
+const glob = require('glob')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -20,6 +22,12 @@ const createLintingRule = () => ({
     emitWarning: !config.dev.showEslintErrorsInOverlay
   }
 })
+
+// prepare vendor asserts
+const globOptions = {cwd: resolve('static/js')};
+let vendorAssets = glob.sync('vendor.dll.*.js', globOptions);
+vendorAssets = vendorAssets.map(file => 'static/js/' + file)
+
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
@@ -117,10 +125,15 @@ module.exports = {
       "window.jQuery": "jquery",
       Popper: ['popper.js', 'default'],
     }),
-   /* new webpack.DllReferencePlugin({
+    /*new webpack.DllReferencePlugin({
       context: __dirname,
       manifest: require('./vendor-manifest.json')
+    }),*/
+    new HtmlWebpackIncludeAssetsPlugin({
+      assets: [vendorAssets[0]],
+      files: ['index.html', 'app/index.html'],
+      append: false
     })
-    */
+    
   ]
 }
