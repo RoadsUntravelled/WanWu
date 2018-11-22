@@ -128,6 +128,10 @@ module.exports = {
       "window.jQuery": "jquery",
       Popper: ['popper.js', 'default'],
     }),
+    /*new webpack.DllPlugin({
+      path: path.resolve('../dist', '[name]-manifest.json'),
+      name: '[name]_library'
+    }),*/
     /*new webpack.DllReferencePlugin({
       context: __dirname,
       manifest: require('./vendor-manifest.json')
