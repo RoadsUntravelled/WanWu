@@ -21,9 +21,9 @@
             <div>
 
                 <div class="input-group">
-                    <label for="verifyCode">验证码
-                        &nbsp;&nbsp;点击图片刷新验证码
-                        <img id="verify" src="/verify_refresh" onclick="verify_refresh(this.id);">
+                    <label for="verifyCode">
+                        点击图片刷新验证码
+                        <img id="verify" src="../../../assets/logo.png">
                     </label>
                     <input type="text" class="form-control" id="verifyCode" name="verifyCode" placeholder="四位字符验证码" autocomplete="off">
                 </div>
@@ -31,10 +31,10 @@
             <button id="btn_login" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
         </form>
       <div style="text-align:center;">
-          <router-link to="/contest" >竞赛登录</router-link>
+          <router-link to="#" >竞赛登录</router-link>
       </div>
       <div style="text-align:center;">
-          <router-link to="/download_center" >下载中心</router-link>
+          <router-link to="#" >下载中心</router-link>
       </div>
     </div>
 </template>
