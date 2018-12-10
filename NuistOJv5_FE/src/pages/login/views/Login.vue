@@ -3,34 +3,25 @@
         <form id="form_login" class="form-login" role="form" action="" method="post">
             <h1><strong>TSOJ</strong></h1>
             <h3 class="form-signin-heading">Please login!</h3>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text span-icon" id="bind-username"><i class="fa fa-user" aria-hidden="true"></i></span>
-              </div>
+            <IconInput bind_id="bind-username" icon_class="fa fa-user">
               <label for="username" class="sr-only">Username</label>
-              <input type="text" name="username" id="form-username" class="form-control" placeholder="Username..."
+              <input v-model="formLogin.username" type="text" name="username" id="form-username" class="form-control" placeholder="Username..."
               required aria-label="Username" aria-describedby="bind-username" autofocus>
-            </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text span-icon" id="bind-password"><i class="fa fa-lock" aria-hidden="true"></i></span>
-              </div>
+            </IconInput>
+            <IconInput bind_id="bind-password" icon_class="fa fa-lock">
               <label for="inputPassword" class="sr-only">Password</label>
-              <input type="password" name="password" id="form-password" class="form-control" placeholder="Password..." required aria-label="Password" aria-describedby="bind-password">
-            </div>
-                <div class="input-group mb-3"  style="margin-bottom:10px">
-                   <div class="input-group-prepend">
-                      <span class="input-group-text span-icon" id="bind-veriycode"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span>
-                   </div>
-                    <div>
-                        <input type="text" class="form-control" aria-label="VeryCode" aria-describedby="bind-veriycode" id="verifyCode" name="verifyCode" placeholder="四位字符验证码" autocomplete="off">
-                    </div>
-                    <div>
-                        <label for="verifyCode">
-                             <img id="verify" style="width:50px;height:40px;" src="../../../assets/logo.png">
-                        </label>
-                    </div>
+              <input v-model="formLogin.password" type="password" name="password" id="form-password" class="form-control" placeholder="Password..." required aria-label="Password" aria-describedby="bind-password">
+            </IconInput>
+            <IconInput bind_id="bind-veriycode" icon_class="fa fa-lightbulb-o">
+                <div>
+                  <input v-model="formLogin.verifyCode" type="text" class="form-control" aria-label="VeryCode" aria-describedby="bind-veriycode" id="verifyCode" name="verifyCode" placeholder="四位字符验证码" autocomplete="off">
                 </div>
+                <div>
+                  <label for="verifyCode">
+                    <img id="verify" style="width:50px;height:40px;" src="../../../assets/logo.png">
+                  </label>
+                </div>
+            </IconInput>
             <button id="btn_login" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
         </form>
       <div style="text-align:center;">
@@ -43,11 +34,18 @@
 </template>
 
 <script>
+/* eslint-disable */
+import IconInput from "@login/components/IconInput"
 export default {
   name: 'Login',
+  components: {IconInput},
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      formLogin: {
+        username: '',
+        password: '',
+        verifyCode: ''
+      }
     }
   }
 }
@@ -65,10 +63,5 @@ export default {
 
         .verifyCodes {
             padding-left: 0px;
-        }
-        .span-icon{
-          height: 46px;
-          width: 46px;
-          display: inline-block;
         }
 </style>
