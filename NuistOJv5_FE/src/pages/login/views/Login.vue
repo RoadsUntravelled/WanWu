@@ -4,12 +4,12 @@
             <h1><strong>TSOJ</strong></h1>
             <h3 class="form-signin-heading">Please login!</h3>
             <IconInput bind_id="bind-username" icon_class="fa fa-user">
-              <label for="username" class="sr-only">Username</label>
+              <label for="form-username" class="sr-only">Username</label>
               <input v-model="formLogin.username" type="text" name="username" id="form-username" class="form-control" placeholder="Username..."
               required aria-label="Username" aria-describedby="bind-username" autofocus>
             </IconInput>
             <IconInput bind_id="bind-password" icon_class="fa fa-lock">
-              <label for="inputPassword" class="sr-only">Password</label>
+              <label for="form-password" class="sr-only">Password</label>
               <input v-model="formLogin.password" type="password" name="password" id="form-password" class="form-control" placeholder="Password..." required aria-label="Password" aria-describedby="bind-password">
             </IconInput>
             <IconInput bind_id="bind-veriycode" icon_class="fa fa-lightbulb-o">

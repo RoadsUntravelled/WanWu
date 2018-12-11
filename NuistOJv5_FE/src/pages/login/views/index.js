@@ -1,4 +1,4 @@
-const Login = () => import(/* webpackChunkName:"login" */'@login/views/Login.vue')
+const Login = () => import(/* webpackChunkName:"Login" */'@login/views/Login.vue')
 
 export {
   Login
