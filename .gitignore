@@ -1,5 +1,7 @@
 #ignore /.idea
 /.idea
 
+#ignore be
+/NuistOJv5_BE/.idea
 #ignoe venu
 /NuistOJv5_BE/venu
