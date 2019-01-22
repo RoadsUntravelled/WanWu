@@ -38,7 +38,7 @@ const gethtmlPluginsOfDev=()=>{
   let arr=[]
   entryHtml.forEach((filePath) => {
     let filename = filePath.substring(filePath.lastIndexOf('pages\/') + 6, filePath.lastIndexOf('\/'))
-    if(filename=='login'){
+    if(filename=='main'){
     arr.push(new HtmlWebpackPlugin({
       // 模板来源
       template: path.resolve(__dirname,filePath),
@@ -86,7 +86,7 @@ const gethtmlPluginsOfProd=()=>{
     let filename = filePath.substring(filePath.lastIndexOf('pages\/') + 6, filePath.lastIndexOf('\/'))
     commonChunks.selectedChunks.push(filename)
     commonChunks.minChunks++;
-    if(filename=='login'){
+    if(filename=='main'){
     arr.push(new HtmlWebpackPlugin({
       // 模板来源
       template: path.resolve(__dirname,filePath),

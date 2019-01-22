@@ -35,9 +35,9 @@
 
 <script>
 /* eslint-disable */
-import IconInput from "@login/components/IconInput"
+import IconInput from "@main/components/IconInput"
 export default {
-  name: 'Login',
+  name: 'Main',
   components: {IconInput},
   data () {
     return {
