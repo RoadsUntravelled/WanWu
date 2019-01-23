@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TSOJ</title>
+    <title>WanWu</title>
     <link rel="shortcut icon" href="../../assets/favicon.gif">
 
     <script type="text/javascript">
@@ -16,20 +16,16 @@
                 let reIE = new RegExp("MSIE (\\d+\\.\\d+);");
                 reIE.test(ua);
                 let fIEVersion = parseFloat(RegExp["$1"]);
-                if (fIEVersion!=9&&fIEVersion!=10&&!confirm("检测到您当前使用的浏览器与本系统不兼容，可能会影响您的访问体验。点击确定继续访问，点击取消下载Chrome浏览器")) {
-                    window.location.href = "/static/download_center.html";
-                }
+                if (fIEVersion!=9&&fIEVersion!=10)
+                    alert("检测到您当前使用的浏览器与本系统不兼容，可能会影响您的访问体验。");
             }
         }
         
     </script>
 </head>
-<body background="../../assets/loginbg.jpg">
+<body>
     <!-- Top content -->
     <div id="app">
-    </div>
-    <div style="position: absolute; bottom: 0px; height: 25px; text-align: center; width: 100%; background: #C0D0FF; line-height: 25px;">
-        <strong>NUIST备80065</strong>
     </div>
 </body>
 </html>
