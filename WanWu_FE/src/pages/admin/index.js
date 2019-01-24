@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import 'jquery'
 import 'font-awesome-webpack'
 
 import ElementUI from 'element-ui'
