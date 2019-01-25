@@ -2,6 +2,7 @@
 /.idea
 
 #ignore be
-/NuistOJv5_BE/.idea
+/WanWu_FE/.idea
 #ignoe venu
-/NuistOJv5_BE/venu
+/WanWu_BE/venv
+/WanWu_BE/.idea
