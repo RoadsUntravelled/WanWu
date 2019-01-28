@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser
 
 class User(AbstractBaseUser):
     user_id = models.BigAutoField(primary_key=True)
-    username = models.CharField(unique=True,max_length=150)
+    username = models.CharField(unique=True, max_length=150)
     password = models.CharField(max_length=128)
     email = models.EmailField()
 
@@ -13,7 +13,8 @@ class User(AbstractBaseUser):
 
 
 class UserProfile(models.Model):
-    user_id = models.OneToOneField(User,on_delete=models.CASCADE)
+    user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     nickname = models.TextField(null=True)
 
-
+    class Meta:
+        db_table = "user_profile"

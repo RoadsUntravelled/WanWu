@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import 'jquery'
 import 'font-awesome-webpack'
 
 import ElementUI from 'element-ui'
@@ -15,7 +14,6 @@ import 'iview/dist/styles/iview.css'
 Vue.use(ElementUI)
 Vue.use(iView)
 Vue.config.productionTip = false
-console.log(router)
 
 /* eslint-disable */
 // eslint-disable-next-line

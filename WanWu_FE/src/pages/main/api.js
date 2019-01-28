@@ -7,7 +7,7 @@ axios.defaults.baseURL = 'api'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 axios.defaults.xsrfCookieName = 'csrftoken'
 export default {
-  	test (params) {
+  	register (params) {
     	return ajax('register/', 'POST')
     }
 }

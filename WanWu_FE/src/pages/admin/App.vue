@@ -35,7 +35,7 @@ export default {
   name: 'App',
   methods: {
     test () {
-      api.getWebsiteConf()
+      api.test()
       console.log("sda")
       }
   }

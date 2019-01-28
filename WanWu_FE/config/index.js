@@ -5,9 +5,9 @@
 const path = require('path')
 const webProxy = {
   onProxyReq: (proxyReq, req, res) => {
-    proxyReq.setHeader('Referer', 'https://localhost:8888')
+    proxyReq.setHeader('Referer', 'http://localhost:8888')
   },
-  target: 'https://localhost:8888',
+  target: 'http://localhost:8888',
   changeOrigin: true
 }
 console.log(webProxy)

@@ -1,4 +1,4 @@
-const Main = () => import(/* webpackChunkName:"Main" */'@admin/views/Main.vue')
+const Main = () => import(/* webpackChunkName:"Admin" */'@admin/views/Main.vue')
 
 export {
   Main

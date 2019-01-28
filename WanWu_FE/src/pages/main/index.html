@@ -9,17 +9,6 @@
 
     <script type="text/javascript">
         
-        window.onload = ()=> {
-            let ua = window.navigator.userAgent;
-            let isIElt11 = window.ActiveXObject != undefined && ua.indexOf("MSIE") != -1;
-            if (isIElt11) {
-                let reIE = new RegExp("MSIE (\\d+\\.\\d+);");
-                reIE.test(ua);
-                let fIEVersion = parseFloat(RegExp["$1"]);
-                if (fIEVersion!=9&&fIEVersion!=10)
-                    alert("检测到您当前使用的浏览器与本系统不兼容，可能会影响您的访问体验。");
-            }
-        }
         
     </script>
 </head>
