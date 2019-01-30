@@ -4,7 +4,7 @@ import {
 
 export default [
   {
-    name: 'main',
+    name: 'admin',
     path: '/admin',
     meta: {title: 'Main'},
     component: Main

@@ -3,18 +3,7 @@
     <!--img src="./assets/logo.png"-->
   <el-container>
   <el-header>
-    <el-row>
-      <el-col :span="24">
-        <el-menu mode="horizontal" text-color="black">
-            <el-menu-item index="1">
-                <img width="50" height="50" src="../../assets/headicon.png">
-                <img width="50" height="50" style="margin-top:0.5cm;" src="../../assets/wanwu.png">
-            </el-menu-item>
-            <el-menu-item index="2">处理中心</el-menu-item>
-            <el-menu-item index="3" @click="test">test</el-menu-item>
-        </el-menu>
-      </el-col>
-    </el-row>
+      <NavBar></NavBar>
   </el-header>
   <el-aside>
   </el-aside>
@@ -30,14 +19,13 @@
 <script>
 // eslint-disable-next-line
 /* eslint-disable */
-import api from '@main/api'
+import NavBar from '@main/components/NavBar.vue'
 export default {
   name: 'App',
+  components:{
+    NavBar
+  },
   methods: {
-    test () {
-      api.register()
-      console.log("sda")
-      }
   }
 }
 </script>

@@ -10,7 +10,6 @@ const webProxy = {
   target: 'http://localhost:8888',
   changeOrigin: true
 }
-console.log(webProxy)
 module.exports = {
   dev: {
 

@@ -68,8 +68,8 @@ module.exports = {
           {
             loader: 'html-loader',
             options: {
-              /*
-              html-loader 接受 attrs 参数，表示什么标签的什么属性需要调用 webpack 的 loader 进行打包。
+              
+              /*html-loader 接受 attrs 参数，表示什么标签的什么属性需要调用 webpack 的 loader 进行打包。
               比如 <img> 标签的 src 属性，webpack 会把 <img> 引用的图片打包，然后 src 的属性值替换为打包后的路径。
               使用什么 loader 代码，同样是在 module.rules 定义中使用匹配的规则。
 
