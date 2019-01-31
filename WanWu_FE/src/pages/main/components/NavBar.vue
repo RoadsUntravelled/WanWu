@@ -9,15 +9,12 @@
         <el-menu-item index="4" class="avatar"><div class="demo-avatar" @click="modal=true"><Avatar icon="ios-person" size="large" /></div></el-menu-item>
     </el-menu>
     <Modal v-model="modal" width="400">
-        <div slot="header" style="text-align:left">
-          <img src="../../../assets/icon.png"  height="50" width="98">
-        </div>
+      -<div slot="header" style="text-align:left">
+-          <img src="../../../assets/icon.png"  height="50" width="98">
+-      </div>
         <div style="text-align:center">
-            <p>After this task is deleted, the downstream 10 tasks will not be implemented.</p>
-            <p>Will you delete it?</p>
-        </div>
-        <div slot="footer">
-            <Button type="error" size="large">Delete</Button>
+          <register>
+          </register>
         </div>
     </Modal>
   </div>
@@ -27,7 +24,13 @@
 // eslint-disable-next-line
 /* eslint-disable */
 import api from '@main/api'
+import login from '@main/components/Modal/Login'
+import register from '@main/components/Modal/Register'
 export default {
+  components:{
+    login,
+    register
+  },
   data(){
     return{
       modal:false
@@ -39,6 +42,9 @@ export default {
       },
     directToRoute(route){
       this.$router.push({name:route})
+    },
+    register(){
+
     }
   }
 }
@@ -47,5 +53,8 @@ export default {
 .avatar{
   float: right!important;
   margin-right:50px!important;
+}
+.ivu-modal-footer {
+    display: none!important;
 }
 </style>
