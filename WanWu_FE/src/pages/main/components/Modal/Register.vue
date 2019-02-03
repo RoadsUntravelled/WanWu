@@ -49,24 +49,24 @@ export default {
         }
 		return{
             btnloading:false,
-			registerData:{
-				username:'',
-				email:'',
-				password:'',
-				confirm_pwd:''
+            registerData:{
+                username:'',
+                email:'',
+                password:'',
+                confirm_pwd:''
 			},
-			ruleRegister:{
+            ruleRegister:{
 				username:[
                     {required:true,message:'用户名输入不能为空!',trigger:'blur'},
                     {type:'string',min:6,max:50,message:'用户名长度为6-50位无空格字符!',pattern:RegEx.InputDataRegEx,trigger:'blur'}
 				],
 				email:[
-					{required:true,message:'邮箱输入不能为空!',trigger:'blur'},
-					{type:'email',message:'请输入正确格式的邮箱!',trigger:'blur'}
+                    {required:true,message:'邮箱输入不能为空!',trigger:'blur'},
+                    {type:'email',message:'请输入正确格式的邮箱!',trigger:'blur'}
 				],
 				password:[
-					{required:true,message:'密码不能为空!',trigger:'blur'},
-					{type:'string',min:6,max:50,message:'密码为6-50位无空格字符!',pattern:RegEx.InputDataRegEx,trigger:'blur'},
+                    {required:true,message:'密码不能为空!',trigger:'blur'},
+                    {type:'string',min:6,max:50,message:'密码为6-50位无空格字符!',pattern:RegEx.InputDataRegEx,trigger:'blur'},
                     {validator:ChangePassword,trigger:'change'}
 				],
                 confirm_pwd:[
