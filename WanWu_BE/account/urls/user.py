@@ -1,7 +1,8 @@
 from django.urls import path
-from ..views.user import (UserRegisterAPI)
+from ..views.user import (UserRegisterAPI,CheckUserExist)
 
 
 urlpatterns = [
-    path('register/', UserRegisterAPI.as_view(),name="user_register_api")
+    path('register/', UserRegisterAPI.as_view(), name="user_register_api"),
+    path('checkUserExist/', CheckUserExist.as_view(), name="check_userExist_api")
 ]

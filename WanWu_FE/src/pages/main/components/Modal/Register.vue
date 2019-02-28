@@ -1,29 +1,29 @@
 <template>
     <div>
-    <Form ref="registerForm" :model="registerData" :rules="ruleRegister">
-        <FormItem prop="username">
-            <Input v-model="registerData.username" size="large" placeholder="用户名">
-                <Icon type="ios-contact" size="40" slot="prefix"/>
-            </Input>
-        </FormItem>
-        <FormItem prop="email">
-            <Input v-model="registerData.email" size="large" placeholder="电子邮箱">
-                <Icon type="ios-mail" size="40" slot="prefix"/>
-            </Input>
-        </FormItem>
-        <FormItem prop="password">
-            <Input v-model="registerData.password" type="password" size="large" placeholder="密码">
-                <Icon type="ios-lock" size="40" slot="prefix"/>
-            </Input>
-        </FormItem>
-        <FormItem prop="confirm_pwd">
-            <Input v-model="registerData.confirm_pwd" type="password" size="large" placeholder="请确认密码">
-                <Icon type="ios-lock" size="40" slot="prefix"/>
-            </Input>
-        </FormItem>
-    </Form>
-    <el-button round :loading="btnloading" @click="Register">注册</el-button></br></br>
-    <a href="#">已经有账号?点击这里登录</a>
+        <Form ref="registerForm" :model="registerData" :rules="ruleRegister">
+            <FormItem prop="username">
+                <Input v-model="registerData.username" size="large" placeholder="用户名">
+                    <Icon type="ios-contact" size="40" slot="prefix"/>
+                </Input>
+            </FormItem>
+            <FormItem prop="email">
+                <Input v-model="registerData.email" size="large" placeholder="电子邮箱">
+                    <Icon type="ios-mail" size="40" slot="prefix"/>
+                </Input>
+            </FormItem>
+            <FormItem prop="password">
+                <Input v-model="registerData.password" type="password" size="large" placeholder="密码">
+                    <Icon type="ios-lock" size="40" slot="prefix"/>
+                </Input>
+            </FormItem>
+            <FormItem prop="confirm_pwd">
+                <Input v-model="registerData.confirm_pwd" type="password" size="large" placeholder="请确认密码">
+                    <Icon type="ios-lock" size="40" slot="prefix"/>
+                </Input>
+            </FormItem>
+        </Form>
+        <el-button round :loading="btnloading" @click="registerFuc">注册</el-button></br></br>
+        <a href="#">已经有账号?点击这里登录</a>
     </div>
 </template>
 <script>
@@ -31,9 +31,20 @@
 // eslint-disable-next-line 
 import {FormMixin} from '../mixins'
 import RegEx from '@/utils/RegEx'
+import api from '@main/api'
 export default {
     mixins:[FormMixin],
     data(){
+        const CheckUsername = (rule,value,callback)=>{
+            api.checkUserExist(value,undefined).then(obj=>{
+
+            },_=>callback())
+        }
+        const CheckEmail = (rule,value,callback)=>{
+            api.checkUserExist(undefined,value).then(obj=>{
+
+            },_=>callback())
+        }
         const ChangePassword = (rule,value,callback)=>{
             if (value !== ''&&this.registerData.confirm_pwd!=='') {
             // 对第二个密码框再次验证
@@ -58,11 +69,13 @@ export default {
             ruleRegister:{
                 username:[
                     {required:true,message:'用户名输入不能为空!',trigger:'blur'},
-                    {type:'string',min:6,max:50,message:'用户名长度为6-50位无空格字符!',pattern:RegEx.InputDataRegEx,trigger:'blur'}
+                    {type:'string',min:6,max:50,message:'用户名长度为6-50位无空格字符!',pattern:RegEx.InputDataRegEx,trigger:'blur'},
+                    {validator:CheckUsername,trigger:'blur'}
                 ],
                 email:[
                     {required:true,message:'邮箱输入不能为空!',trigger:'blur'},
-                    {type:'email',message:'请输入正确格式的邮箱!',trigger:'blur'}
+                    {type:'email',message:'请输入正确格式的邮箱!',trigger:'blur'},
+                    {validator:CheckEmail,trigger:'blur'}
                 ],
                 password:[
                     {required:true,message:'密码不能为空!',trigger:'blur'},
@@ -77,9 +90,17 @@ export default {
         }
     },
     methods:{
-        Register(){
+        registerFuc(){
             this.validateForm('registerForm').then(valid=>{
+                let formData = registerData
+                delete formData['confirm_pwd']
                 this.btnloading = true
+                api.register(formData).then(obj=>{
+
+                },_=>{
+
+                })
+
             })
         }
     }	

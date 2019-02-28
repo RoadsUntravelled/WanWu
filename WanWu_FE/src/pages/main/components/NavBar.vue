@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     test () {
-      api.register()
+      api.register('test')
       },
     directToRoute(route){
       this.$router.push({name:route})
