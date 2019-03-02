@@ -1,4 +1,5 @@
 import os
+import json
 from django.conf import settings
 from django.contrib import auth
 from ..models import User
@@ -13,6 +14,15 @@ class UserRegisterAPI(View):
 
 class CheckUserExist(View):
     def post(self,request):
-        data = request.body
+        body = request.body.decode("utf-8")
+        content_type = request
+        print(content_type.GET)
+        print(body)
+        data = json.loads(body)
         print(data)
+        return HttpResponse("success")
+
+
+class Test(View):
+    def get(self, request):
         return HttpResponse("success")

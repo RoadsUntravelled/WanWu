@@ -8,10 +8,13 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 axios.defaults.xsrfCookieName = 'csrftoken'
 export default {
   	register (data) {
-    	return ajax('register/', 'POST',{data})
+    	return ajax('register/', 'POST',{data:data})
     },
     checkUserExist(username,email){
       return ajax('checkUserExist/','POST',{data:{username,email}})
+    },
+    Test(){
+      return ajax('test/','GET',{params:{user:'sssddd'}})
     }
 }
 
