@@ -37,12 +37,20 @@ export default {
     data(){
         const CheckUsername = (rule,value,callback)=>{
             api.checkUserExist(value,undefined).then(obj=>{
-
+                if(obj.data.data.username === true){
+                    callback(new Error('用户名已存在,请重新输入!'))
+                }else{
+                    callback()
+                }
             },_=>callback())
         }
         const CheckEmail = (rule,value,callback)=>{
             api.checkUserExist(undefined,value).then(obj=>{
-
+                if(obj.data.data.email ===true){
+                    callback(new Error('邮箱已存在,请重新输入!'))
+                }else{
+                    callback()
+                }
             },_=>callback())
         }
         const ChangePassword = (rule,value,callback)=>{
@@ -92,13 +100,13 @@ export default {
     methods:{
         registerFuc(){
             this.validateForm('registerForm').then(valid=>{
-                let formData = registerData
+                let formData = this.registerData
                 delete formData['confirm_pwd']
                 this.btnloading = true
                 api.register(formData).then(obj=>{
-
+                    this.btnloading=false
                 },_=>{
-
+                    this.btnloading=false
                 })
 
             })

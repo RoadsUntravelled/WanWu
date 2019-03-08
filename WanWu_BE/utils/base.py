@@ -1,6 +1,6 @@
 import json
 from django.views.generic import View
-
+from django.http import HttpResponse, QueryDict
 
 class BaseError(Exception):
     def __init__(self, msg, err=None):
@@ -32,11 +32,11 @@ class URLEncodedParser(object):
 
 
 class ParserFactory(object):
-    request_parser = (JSONParser, URLEncodedParser)
 
     @staticmethod
-    def get_parse(self, content_type):
-        for parser in self.request_parser:
+    def get_parse(content_type):
+        request_parser = (JSONParser, URLEncodedParser)
+        for parser in request_parser:
             if content_type.startswith(parser.content_type):
                 return parser
         raise ValueError("unknown content_type '%s'" % content_type)
@@ -54,7 +54,7 @@ class JSONResponse(object):
 
 class BaseView(View):
     def _parse_body(self, request):
-        if request.method is not "GET":
+        if request.method != "GET":
             body = request.body
             content_type = request.META.get("CONTENT_TYPE")
             if not content_type:
@@ -68,11 +68,14 @@ class BaseView(View):
     def response(self, data):
         return JSONResponse.response(data)
 
-    def success(self,data=None):
-        return self.response({"error":None,"data":data})
+    def success(self, data=None):
+        return self.response({"error": None, "data": data})
 
     def error(self, msg="error", err="error"):
         return self.response({"error": err, "data": msg})
+
+    def server_error(self):
+        return self.error(err="server-error", msg="server error")
 
     def dispatch(self, request, *args, **kwargs):
         try:
@@ -80,9 +83,11 @@ class BaseView(View):
         except ValueError as e:
             return self.error(err="invalid-request", msg=str(e))
         try:
-            return super(BaseView,self),dispatch(request,*args,**kwargs)
+            return super().dispatch(request, *args, **kwargs)
         except BaseError as e:
-            ret = {"msg":e.msg}
+            param = {"msg": e.msg}
             if e.err:
-                ret["err"]=e.err
-            return self.error(**ret)
+                param["err"]=e.err
+            return self.error(**param)
+        except Exception as e:
+            return self.server_error()

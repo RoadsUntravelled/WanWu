@@ -2,27 +2,44 @@ import os
 import json
 from django.conf import settings
 from django.contrib import auth
-from ..models import User
 from django.http import HttpResponse
 from django.views.generic import View
+from ..models import User, UserProfile
+
+from utils.base import BaseView
 
 
-class UserRegisterAPI(View):
+class UserRegisterAPI(BaseView):
     def post(self, request):
-        return HttpResponse("success")
+        data = request.data
+        data["username"] = data["username"].lower()
+        data["email"] = data["email"].lower()
+        if User.objects.filter(username=data["username"]).exists():
+            return self.error("用户名已存在,请重新输入!")
+        if User.objects.filter(email=data["email"]).exists():
+            return self.error("邮箱已存在,请重新输入!")
+        user = User.objects.create(username=data["username"], email=data["email"])
+        user.set_password(data["password"])
+        user.save()
+        UserProfile.objects.create(user=user)
+        return self.success("Succeeded")
 
 
-class CheckUserExist(View):
-    def post(self,request):
-        body = request.body.decode("utf-8")
-        content_type = request
-        print(content_type.GET)
-        print(body)
-        data = json.loads(body)
-        print(data)
-        return HttpResponse("success")
+class CheckUserExist(BaseView):
+    def post(self, request):
+        data = request.data
+        result = {
+            'username': False,
+            'email': False
+        }
+        if data.get("username"):
+            result["username"] = User.objects.filter(username=data["username"].lower()).exists()
+        if data.get("email"):
+            result["email"] = User.objects.filter(email=data["email"].lower()).exists()
+        return self.success(result)
 
 
-class Test(View):
+class Test(BaseView):
     def get(self, request):
+        print(request.GET)
         return HttpResponse("success")

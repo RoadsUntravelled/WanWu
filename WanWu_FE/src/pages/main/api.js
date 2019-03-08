@@ -7,7 +7,7 @@ axios.defaults.baseURL = 'api'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 axios.defaults.xsrfCookieName = 'csrftoken'
 export default {
-  	register (data) {
+  	register(data){
     	return ajax('register/', 'POST',{data:data})
     },
     checkUserExist(username,email){
@@ -32,10 +32,16 @@ function ajax(url,method,options){
       params,
       data
     }).then(obj => {
+      if(obj.data.error!==null){
+        Vue.prototype.$error(res.data.error)
+        reject(obj)
         resolve(obj)
+      }else{
+        resolve(obj)
+      }
     }, obj => {
     	reject(obj)
-    	Vue.prototype.$error(obj.data.data)
+    	Vue.prototype.$error(obj.data.error)
     })
   })
 }	

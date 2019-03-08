@@ -13,7 +13,7 @@ class User(AbstractBaseUser):
 
 
 class UserProfile(models.Model):
-    user_id = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     nickname = models.TextField(null=True)
 
     class Meta:
