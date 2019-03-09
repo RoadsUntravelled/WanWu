@@ -33,15 +33,14 @@ function ajax(url,method,options){
       data
     }).then(obj => {
       if(obj.data.error!==null){
-        Vue.prototype.$error(res.data.error)
+        Vue.prototype.$error(res.data.data)
         reject(obj)
-        resolve(obj)
       }else{
         resolve(obj)
       }
-    }, obj => {
+    }).catch(obj => {
     	reject(obj)
-    	Vue.prototype.$error(obj.data.error)
+    	Vue.prototype.$error(obj.data.data)
     })
   })
 }	

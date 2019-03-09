@@ -42,7 +42,7 @@ export default {
                 }else{
                     callback()
                 }
-            },_=>callback())
+            }).catch(obj=>this.prototype.$error(obj.data.data))
         }
         const CheckEmail = (rule,value,callback)=>{
             api.checkUserExist(undefined,value).then(obj=>{
@@ -51,7 +51,7 @@ export default {
                 }else{
                     callback()
                 }
-            },_=>callback())
+            }).catch(obj=>this.prototype.$error(obj.data.data))
         }
         const ChangePassword = (rule,value,callback)=>{
             if (value !== ''&&this.registerData.confirm_pwd!=='') {
@@ -100,7 +100,7 @@ export default {
     methods:{
         registerFuc(){
             this.validateForm('registerForm').then(valid=>{
-                let formData = this.registerData
+                let formData = {...this.registerData}
                 delete formData['confirm_pwd']
                 this.btnloading = true
                 api.register(formData).then(obj=>{
