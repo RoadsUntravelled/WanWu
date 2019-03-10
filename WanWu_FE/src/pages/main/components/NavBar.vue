@@ -13,8 +13,8 @@
 -          <img src="../../../assets/icon.png"  height="50" width="98">
 -      </div>
         <div style="text-align:center">
-          <register>
-          </register>
+          <login>
+          </login>
         </div>
     </Modal>
   </div>
@@ -26,11 +26,9 @@
 import {mapGetters,mapActions}from 'vuex'
 import api from '@main/api'
 import login from '@main/components/Modal/Login'
-import register from '@main/components/Modal/Register'
 export default {
   components:{
     login,
-    register
   },
   methods: {
     ...mapActions(['changeModal']),
