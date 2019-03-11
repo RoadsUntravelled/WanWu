@@ -23,17 +23,18 @@
             </FormItem>
         </Form>
         <el-button round :loading="btnloading" @click="registerFuc">注册</el-button></br></br>
-        <a href="#">已经有账号?点击这里登录</a>
+        <a @click.stop="switchModal('login')">已经有账号?点击这里登录</a>
     </div>
 </template>
 <script>
 /* eslint-disable */
 // eslint-disable-next-line 
-import {FormMixin} from '../mixins'
+import {FormMixin, ModalMixin} from '../mixins'
 import RegEx from '@/utils/RegEx'
 import api from '@main/api'
+import {mapGetters}from 'vuex'
 export default {
-    mixins:[FormMixin],
+    mixins:[FormMixin, ModalMixin],
     data(){
         const CheckUsername = (rule,value,callback)=>{
             api.checkUserExist(value,undefined).then(obj=>{
@@ -110,7 +111,10 @@ export default {
                 })
 
             })
-        }
+        },
+    },
+    computed:{
+        ...mapGetters(['modal'])
     }	
 }
 </script>

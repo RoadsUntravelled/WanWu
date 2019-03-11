@@ -1,29 +1,30 @@
 import Vue from 'vue'
-import Vuex from 'vuex'store.js
+import Vuex from 'vuex'
 import types from './mutation_types.js'
 
 Vue.use(Vuex)
-
+/* eslint-disable */
+// eslint-disable-next-line
 const rootState={
-	modalType:{
+	modal:{
 		mode:'login',
 		visible:false
 	}
 }
 
 const rootGetters={
-	modalType(state){
-		return state.modalType
+	'modal'(state){
+		return state.modal
 	}
 }
 
 const rootMutations={
 	[types.CHANGE_MODAL](state,{mode,visible}){
 		if(mode!==undefined){
-			state.modalType.mode=mode
+			state.modal.mode=mode
 		}
 		if(visible!==undefined){
-			state.modalType.visible=visible
+			state.modal.visible=visible
 		}
 	}
 }
@@ -33,7 +34,6 @@ const rootActions={
 		commit(types.CHANGE_MODAL,payload)
 	}
 }
-
 export default new Vuex.Store({
 	state:rootState,
 	getters:rootGetters,

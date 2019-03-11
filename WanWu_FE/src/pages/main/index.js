@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'font-awesome-webpack'
+import store from '@/store/store'
 
 import ElementUI from 'element-ui'
 import '../../element-#EEECE0/index.css'
@@ -11,8 +12,10 @@ import '../../element-#EEECE0/index.css'
 
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+
 Vue.use(ElementUI)
 Vue.use(iView)
+
 Vue.config.productionTip = false
 
 Vue.prototype.$Message.config({
@@ -25,6 +28,7 @@ Vue.prototype.$success = (msg) => Vue.prototype.$Message.success(msg)
 // eslint-disable-next-line
 new Vue({
   el: '#app',
+  store,
   render: h => h(App),
   router,
   components: { App },

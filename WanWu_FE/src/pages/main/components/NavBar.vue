@@ -6,15 +6,14 @@
         </el-menu-item>
         <el-menu-item index="1">处理中心</el-menu-item>
         <el-menu-item index="3" @click="test">test</el-menu-item>
-        <el-menu-item index="4" class="avatar"><div class="demo-avatar" @click="modal=true"><Avatar icon="ios-person" size="large" /></div></el-menu-item>
+        <el-menu-item index="4" class="avatar"><div class="demo-avatar" @click="switchModal('login')"><Avatar icon="ios-person" size="large" /></div></el-menu-item>
     </el-menu>
     <Modal v-model="modalVisible" width="400">
       -<div slot="header" style="text-align:left">
 -          <img src="../../../assets/icon.png"  height="50" width="98">
 -      </div>
         <div style="text-align:center">
-          <login>
-          </login>
+          <component :is="modal.mode" v-if="modalVisible"></component>
         </div>
     </Modal>
   </div>
@@ -23,15 +22,18 @@
 <script>
 // eslint-disable-next-line
 /* eslint-disable */
-import {mapGetters,mapActions}from 'vuex'
+import {mapGetters}from 'vuex'
 import api from '@main/api'
+import {ModalMixin} from './mixins'
 import login from '@main/components/Modal/Login'
+import register from '@main/components/Modal/Register'
 export default {
+  mixins:[ModalMixin],
   components:{
     login,
+    register
   },
   methods: {
-    ...mapActions(['changeModal']),
     test () {
       api.Test()
       },
@@ -46,10 +48,10 @@ export default {
     ...mapGetters(['modal']),
     modalVisible: {
       get () {
-        return this.modalStatus.visible
+        return this.modal.visible
       },
       set (value) {
-        this.changeModalStatus({visible: value})
+        this.changeModal({visible: value})
       }
     }
   }
