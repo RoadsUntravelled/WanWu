@@ -6,7 +6,15 @@
         </el-menu-item>
         <el-menu-item index="1">处理中心</el-menu-item>
         <el-menu-item index="3" @click="test">test</el-menu-item>
-        <el-menu-item index="4" class="avatar"><div class="demo-avatar" @click="switchModal('login')"><Avatar icon="ios-person" size="large" /></div></el-menu-item>
+        <el-menu-item index="4" class="avatar">
+          <Poptip trigger="hover" placement="bottom-end">
+            <div class="demo-avatar" @click="switchModal('login')"><Avatar icon="ios-person" size="large" /></div>
+            <div slot="content" style="cursor:default;text-align:center;">
+              <span class="fontset">登录以获得更多功能</span></br></br>
+              <el-button round @click="switchModal('login')">注册/登录</el-button>
+            </div>
+          </Poptip>
+        </el-menu-item>
     </el-menu>
     <Modal v-model="modalVisible" width="400">
       -<div slot="header" style="text-align:left">
@@ -32,6 +40,11 @@ export default {
   components:{
     login,
     register
+  },
+  data(){
+    return {
+
+    }
   },
   methods: {
     test () {
@@ -64,5 +77,10 @@ export default {
 }
 .ivu-modal-footer {
     display: none!important;
+}
+.fontset{
+  font-size: 16px;
+  font-weight: bold;
+  color:#9ea7b4;
 }
 </style>
