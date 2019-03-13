@@ -1,0 +1,9 @@
+__pycache__/
+#ignore /.idea
+/.idea
+
+#ignore be
+/WanWu_FE/.idea
+#ignoe venu
+/WanWu_BE/venv
+/WanWu_BE/.idea
