@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3d07404caf613b9c12bd201f9f45d433995565ae
 import json
 from django.views.generic import View
 from django.http import HttpResponse, QueryDict
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3d07404caf613b9c12bd201f9f45d433995565ae
 class BaseError(Exception):
     def __init__(self, msg, err=None):
         self.err = err
@@ -89,7 +95,14 @@ class BaseView(View):
         except BaseError as e:
             param = {"msg": e.msg}
             if e.err:
+<<<<<<< HEAD
                 param["err" ] =e.err
             return self.error(**param)
         except Exception as e:
             return self.server_error()
+=======
+                param["err"]=e.err
+            return self.error(**param)
+        except Exception as e:
+            return self.server_error()
+>>>>>>> 3d07404caf613b9c12bd201f9f45d433995565ae
