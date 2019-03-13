@@ -11,5 +11,6 @@ function keyMirror (obj) {
 /* eslint-disable */
 // eslint-disable-next-line
 export default keyMirror({
-	'CHANGE_MODAL':null
+	'CHANGE_MODAL':null,
+	'SET_USER_PROFILE':null
 })

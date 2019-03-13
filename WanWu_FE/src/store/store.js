@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import types from './mutation_types.js'
+import account from './modules/account'
 
 Vue.use(Vuex)
 /* eslint-disable */
@@ -35,6 +36,9 @@ const rootActions={
 	}
 }
 export default new Vuex.Store({
+	modules:{
+		account
+	},
 	state:rootState,
 	getters:rootGetters,
 	mutations:rootMutations,

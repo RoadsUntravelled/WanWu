@@ -2,12 +2,17 @@ import os
 import json
 from django.conf import settings
 from django.contrib import auth
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.views.generic import View
 from ..models import User, UserProfile
 
 from utils.base import BaseView
+
+
+class UserProfile(BaseView):
+    def get(self, request, **kwargs):
+        return success("success")
 
 
 class UserRegisterAPI(BaseView):
@@ -22,7 +27,7 @@ class UserRegisterAPI(BaseView):
         user = User.objects.create(username=data["username"], email=data["email"])
         user.set_password(data["password"])
         user.save()
-        UserProfile.objects.create(user=user)
+        UserProfile.objects.create(user=user,nickname=data["username"])
         return self.success("Succeeded")
 
 
@@ -31,9 +36,10 @@ class UserLoginAPI(BaseView):
         data = request.data
         user = authenticate(username=data["username"], password=data["password"])
         if user:
+            login(request, user)
             return self.success("Succeeded")
         else:
-            return self.error("user does not exists")
+            return self.error("用户名或密码错误!")
 
 
 class CheckUserExist(BaseView):

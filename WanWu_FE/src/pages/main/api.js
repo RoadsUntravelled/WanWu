@@ -8,21 +8,21 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 axios.defaults.xsrfCookieName = 'csrftoken'
 export default {
   	register(data){
-<<<<<<< HEAD
     	return ajax('register/', 'POST',{data})
-=======
-    	return ajax('register/', 'POST',{data:data})
->>>>>>> 3d07404caf613b9c12bd201f9f45d433995565ae
     },
     checkUserExist(username,email){
       return ajax('checkUserExist/','POST',{data:{username,email}})
     },
-<<<<<<< HEAD
     login(data){
       return ajax('login/','POST',{data})
     },
-=======
->>>>>>> 3d07404caf613b9c12bd201f9f45d433995565ae
+    getUserProfile(user_id=undefined){
+      return ajax('profile/','get',{
+        params:{
+          user_id
+        }
+      })
+    },
     Test(){
       return ajax('test/','GET',{params:{user:'sssddd'}})
     }
@@ -41,21 +41,16 @@ function ajax(url,method,options){
       method,
       params,
       data
-    }).then(obj => {
-      if(obj.data.error!==null){
+    }).then(res => {
+      if(res.data.error!==null){
         Vue.prototype.$error(res.data.data)
-        reject(obj)
+        reject(res)
       }else{
-        resolve(obj)
+        resolve(res)
       }
-    }).catch(obj => {
-<<<<<<< HEAD
-      Vue.prototype.$error(obj.data.data)
+    }).catch(res => {
+      Vue.prototype.$error(res.data.data)
     	reject(obj)
-=======
-    	reject(obj)
-    	Vue.prototype.$error(obj.data.data)
->>>>>>> 3d07404caf613b9c12bd201f9f45d433995565ae
     })
   })
 }	

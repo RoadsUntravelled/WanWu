@@ -32,27 +32,27 @@
 import {FormMixin, ModalMixin} from '../mixins'
 import RegEx from '@/utils/RegEx'
 import api from '@main/api'
-import {mapGetters}from 'vuex'
+import {mapGetters,mapActions}from 'vuex'
 export default {
     mixins:[FormMixin, ModalMixin],
     data(){
         const CheckUsername = (rule,value,callback)=>{
-            api.checkUserExist(value,undefined).then(obj=>{
-                if(obj.data.data.username === true){
+            api.checkUserExist(value,undefined).then(res=>{
+                if(res.data.data.username === true){
                     callback(new Error('用户名已存在,请重新输入!'))
                 }else{
                     callback()
                 }
-            }).catch(obj=>this.prototype.$error(obj.data.data))
+            }).catch(res=>this.prototype.$error(res.data.data))
         }
         const CheckEmail = (rule,value,callback)=>{
-            api.checkUserExist(undefined,value).then(obj=>{
-                if(obj.data.data.email ===true){
+            api.checkUserExist(undefined,value).then(res=>{
+                if(res.data.data.email ===true){
                     callback(new Error('邮箱已存在,请重新输入!'))
                 }else{
                     callback()
                 }
-            }).catch(obj=>this.prototype.$error(obj.data.data))
+            }).catch(res=>this.prototype.$error(res.data.data))
         }
         const ChangePassword = (rule,value,callback)=>{
             if (value !== ''&&this.registerData.confirm_pwd!=='') {
@@ -99,13 +99,15 @@ export default {
         }
     },
     methods:{
+        ...mapActions(['changeModal']),
         registerFuc(){
             this.validateForm('registerForm').then(valid=>{
                 let formData = {...this.registerData}
                 delete formData['confirm_pwd']
                 this.btnloading = true
-                api.register(formData).then(obj=>{
+                api.register(formData).then(res=>{
                     this.btnloading=false
+                    this.changeModal({visible:false})
                 },_=>{
                     this.btnloading=false
                 })
