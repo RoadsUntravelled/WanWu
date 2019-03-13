@@ -2,10 +2,7 @@ import os
 import json
 from django.conf import settings
 from django.contrib import auth
-<<<<<<< HEAD
 from django.contrib.auth import authenticate
-=======
->>>>>>> 3d07404caf613b9c12bd201f9f45d433995565ae
 from django.http import HttpResponse
 from django.views.generic import View
 from ..models import User, UserProfile
@@ -29,7 +26,6 @@ class UserRegisterAPI(BaseView):
         return self.success("Succeeded")
 
 
-<<<<<<< HEAD
 class UserLoginAPI(BaseView):
     def post(self, request):
         data = request.data
@@ -39,8 +35,7 @@ class UserLoginAPI(BaseView):
         else:
             return self.error("user does not exists")
 
-=======
->>>>>>> 3d07404caf613b9c12bd201f9f45d433995565ae
+
 class CheckUserExist(BaseView):
     def post(self, request):
         data = request.data
