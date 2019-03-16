@@ -99,7 +99,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['changeModal']),
+        ...mapActions(['changeModal','getProfile']),
         registerFuc(){
             this.validateForm('registerForm').then(valid=>{
                 let formData = {...this.registerData}
@@ -108,6 +108,7 @@ export default {
                 api.register(formData).then(res=>{
                     this.btnloading=false
                     this.changeModal({visible:false})
+                    this.getProfile()
                 },_=>{
                     this.btnloading=false
                 })

@@ -12,7 +12,7 @@ const getters={
 	user:state=>state.profile.user||{},
 	profile:state=>state.profile,
 	isAuthenticated:(state,getters)=>{
-		return !!getters.user.id
+		return !!getters.profile.id
 	},
 }
 
@@ -25,10 +25,11 @@ const mutations={
 }
 
 const actions={
-	getProfile({commit},user_id=undefined){
-		api.getUserProfile(user_id).then(res=>{
-			commit(type.SET_USER_PROFILE,{
-				profile:res.data.datat||{}
+	getProfile({commit}){
+		api.getUserProfile().then(res=>{
+			console.log(res)
+			commit(types.SET_USER_PROFILE,{
+				profile:res.data.data||{}
 			})
 		})
 	},
@@ -37,6 +38,7 @@ const actions={
 			profile:{}
 		})
 		storage.clear()
+		console.log('ddd')
 	}
 }
 

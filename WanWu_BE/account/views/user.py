@@ -5,14 +5,22 @@ from django.contrib import auth
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.views.generic import View
+
+
 from ..models import User, UserProfile
 
 from utils.base import BaseView
 
+from ..serializers import UserProfileSerializer
+
 
 class UserProfile(BaseView):
     def get(self, request, **kwargs):
-        return success("success")
+        user = request.user
+        data = UserProfileSerializer(user.userprofile).data
+        print(data)
+        return self.success(data)
+
 
 
 class UserRegisterAPI(BaseView):
@@ -27,7 +35,8 @@ class UserRegisterAPI(BaseView):
         user = User.objects.create(username=data["username"], email=data["email"])
         user.set_password(data["password"])
         user.save()
-        UserProfile.objects.create(user=user,nickname=data["username"])
+        UserProfile.objects.create(user=user, nickname=data["username"])
+        login(request, user)
         return self.success("Succeeded")
 
 
@@ -41,6 +50,11 @@ class UserLoginAPI(BaseView):
         else:
             return self.error("用户名或密码错误!")
 
+
+class UserLogoutAPI(BaseView):
+    def get(self, request):
+        auth.logout(request)
+        return self.success()
 
 class CheckUserExist(BaseView):
     def post(self, request):

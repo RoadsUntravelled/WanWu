@@ -16,15 +16,18 @@ export default {
     login(data){
       return ajax('login/','POST',{data})
     },
+    logout(){
+      return ajax('logout/','GET')
+    },
     getUserProfile(user_id=undefined){
-      return ajax('profile/','get',{
+      return ajax('profile/','GET',{
         params:{
           user_id
         }
       })
     },
-    Test(){
-      return ajax('test/','GET',{params:{user:'sssddd'}})
+    profile(){
+      return ajax('profile/','GET',{params:{user:'sssddd'}})
     }
 }
 

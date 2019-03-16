@@ -5,6 +5,7 @@
   <el-aside>
   </el-aside>
   <el-main>
+    <span>dsajfhbdsf</span>
   </el-main>
   <el-footer>
   </el-footer>

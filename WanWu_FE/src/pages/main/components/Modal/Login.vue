@@ -22,7 +22,7 @@
 import {FormMixin, ModalMixin} from '../mixins'
 import RegEx from '@/utils/RegEx'
 import api from '@main/api'
-import {mapGetters}from 'vuex'
+import {mapGetters,mapActions}from 'vuex'
 export default {
 	mixins:[FormMixin, ModalMixin],
 	data(){
@@ -45,6 +45,7 @@ export default {
 		}
 	},
 	methods:{
+		...mapActions(['getProfile']),
 		loginFuc(){
 			this.validateForm('loginForm').then(valid=>{
 				this.btnloading=true
@@ -52,6 +53,8 @@ export default {
 				api.login(formData).then(res=>{
 					this.btnloading=false
 					this.changeModal({visible:false})
+					this.getProfile()
+					console.log(this.isAuthenticated)
 				}).catch(_=>{
 					this.btnloading=false
 				})
@@ -59,7 +62,7 @@ export default {
 		}
 	},
 	computed:{
-	...mapGetters(['modal']),
+	...mapGetters(['modal',"isAuthenticated"]),
 	}	
 }
 </script>

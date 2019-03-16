@@ -1,5 +1,6 @@
 import {
-  Main
+  Main,
+  Logout
 } from '../views'
 
 export default [
@@ -8,5 +9,11 @@ export default [
     path: '/',
     meta: {title: 'Main'},
     component: Main
+  },
+  {
+    name: 'logout',
+    path: '/logout',
+    meta: {title: 'Logout'},
+    component: Logout
   }
 ]
