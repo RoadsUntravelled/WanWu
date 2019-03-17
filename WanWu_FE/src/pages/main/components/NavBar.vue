@@ -26,7 +26,7 @@
           </template>
         </el-menu-item>
     </el-menu>
-    <Modal v-model="modalVisible" width="400">
+    <Modal v-model="modalVisible" width="350">
       -<div slot="header" style="text-align:left">
 -          <img src="../../../assets/icon.png"  height="50" width="98">
 -      </div>

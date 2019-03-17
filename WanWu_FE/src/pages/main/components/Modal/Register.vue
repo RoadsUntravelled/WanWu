@@ -2,24 +2,40 @@
     <div>
         <Form ref="registerForm" :model="registerData" :rules="ruleRegister">
             <FormItem prop="username">
-                <Input v-model="registerData.username" size="large" placeholder="用户名">
-                    <Icon type="ios-contact" size="40" slot="prefix"/>
-                </Input>
+                <div class="form-item-container">
+                    <div class="input-container">
+                        <Input class="normal-size" @on-enter="registerFuc" v-model="registerData.username" size="large" placeholder="用户名">
+                            <Icon type="ios-contact" size="40" slot="prefix"/>
+                        </Input>
+                    </div>
+                </div>
             </FormItem>
             <FormItem prop="email">
-                <Input v-model="registerData.email" size="large" placeholder="电子邮箱">
-                    <Icon type="ios-mail" size="40" slot="prefix"/>
-                </Input>
+                <div class="form-item-container">
+                    <div class="input-container">
+                        <Input class="normal-size" @on-enter="registerFuc" v-model="registerData.email" size="large" placeholder="电子邮箱">
+                            <Icon type="ios-mail" size="40" slot="prefix"/>
+                        </Input>
+                    </div>
+                </div>
             </FormItem>
             <FormItem prop="password">
-                <Input v-model="registerData.password" type="password" size="large" placeholder="密码">
-                    <Icon type="ios-lock" size="40" slot="prefix"/>
-                </Input>
+                <div class="form-item-container">
+                    <div class="input-container">
+                        <Input class="normal-size" @on-enter="registerFuc" v-model="registerData.password" type="password" size="large" placeholder="密码">
+                            <Icon type="ios-lock" size="40" slot="prefix"/>
+                        </Input>
+                    </div>
+                </div>
             </FormItem>
             <FormItem prop="confirm_pwd">
-                <Input v-model="registerData.confirm_pwd" type="password" size="large" placeholder="请确认密码">
-                    <Icon type="ios-lock" size="40" slot="prefix"/>
-                </Input>
+                <div class="form-item-container">
+                    <div class="input-container">
+                        <Input class="normal-size" @on-enter="registerFuc" v-model="registerData.confirm_pwd" type="password" size="large" placeholder="请确认密码">
+                            <Icon type="ios-lock" size="40" slot="prefix"/>
+                        </Input>
+                    </div>
+                </div>
             </FormItem>
         </Form>
         <el-button round :loading="btnloading" @click="registerFuc">注册</el-button></br></br>

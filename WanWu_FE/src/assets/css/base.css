@@ -1,0 +1,32 @@
+.form-item-container input{
+border:none!important;
+border-bottom: 1px solid grey!important;
+outline:none!important;
+margin-bottom:15px!important;
+margin-left:50px;
+}
+.normal-size input{
+	width:260px!important;
+}
+.captcha-size input{
+	width:160px!important;
+}
+.icon-input input:focus,.icon-input input:hover{
+	box-shadow:0 1px #57a3f3!important;  
+	outline:none!important;
+	border-color:none!important;
+}
+.form-item-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  width:100%;
+  .input-container {
+  	flex:auto;
+  }
+  .captcha-img {
+    margin-left:0%;
+    padding: 3px;
+    flex: initial;
+  }
+}

@@ -2,14 +2,36 @@
     <div>
         <Form ref="loginForm" :model="loginData" :rules="ruleLogin">
             <FormItem prop="username">
-                <Input v-model="loginData.username" size="large" placeholder="请输入用户名/邮箱">
-                    <Icon type="ios-contact" size="40" slot="prefix"/>
-                </Input>
+                <div class="form-item-container">
+                    <div class="input-container">
+                        <Input class=" normal-size" @on-enter="loginFuc" v-model="loginData.username" size="large" placeholder="请输入用户名/邮箱">
+                            <Icon type="ios-contact" size="40" slot="prefix"/>
+                        </Input>
+                    </div>
+                </div>
             </FormItem>
             <FormItem prop="password">
-                <Input v-model="loginData.password" type="password" size="large" placeholder="密码">
-                    <Icon type="ios-lock" size="40" slot="prefix"/>
-                </Input>
+                <div class="form-item-container">
+                    <div class="input-container">
+                        <Input class="normal-size" @on-enter="loginFuc" v-model="loginData.password" type="password" size="large" placeholder="密码">
+                            <Icon type="ios-lock" size="40" slot="prefix"/>
+                        </Input>
+                    </div>
+                </div>
+            </FormItem>
+            <FormItem prop="captcha">
+                <div class="form-item-container">
+                    <div class="input-container">
+                        <Input class="captcha-size" v-model="loginData.captcha" placeholder="验证码" size="large" @on-enter="loginFuc">
+                            <Icon type="ios-bulb" size="40" slot="prefix"/>
+                        </Input>
+                    </div>
+                    <div class="captcha-img">
+                        <Tooltip content="刷新验证码" placement="top">
+                            <img src="../../../../assets/logo.png" height="40" width="100" />
+                        </Tooltip>
+                    </div>
+                </div>
             </FormItem>
         </Form>
         <el-button round :loading="btnloading" @click="loginFuc">登录</el-button></br></br>
@@ -30,7 +52,8 @@ export default {
 			btnloading:false,
 			loginData:{
 				username:'',
-				password:''
+				password:'',
+				captcha:''
 			},
 			ruleLogin:{
 				username:[
@@ -40,6 +63,10 @@ export default {
 				password:[
 					{required:true,message:'密码输入不能为空!',trigger:'blur'},
 					{type:'string',min:6,max:50,message:'密码为6-50位无空格字符!',pattern:RegEx.InputDataRegEx,trigger:'blur'}
+				],
+				captcha:[
+					{required:true,message:'请输入验证码!',trigger:'blur'},
+					{type:'string',min:4,max:4,message:'验证码格式错误!',pattern:RegEx.InputDataRegEx,trigger:'blur'}
 				]
 			}
 		}
@@ -66,17 +93,3 @@ export default {
 	}	
 }
 </script>
-<style>
-input{
-border:none!important;
-border-bottom: 1px solid grey!important;
-outline:none!important;
-width:250px!important;
-margin-bottom:15px!important;
-}
-input:focus,input:hover{
-	box-shadow:0 1px #57a3f3!important;  
-	outline:none!important;
-	border-color:none!important;
-}
-</style>

@@ -12,6 +12,7 @@ import '../../element-#EEECE0/index.css'
 
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+import '@/assets/css/base.css'
 
 Vue.use(ElementUI)
 Vue.use(iView)

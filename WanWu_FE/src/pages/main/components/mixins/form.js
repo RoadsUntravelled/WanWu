@@ -1,6 +1,11 @@
 /* eslint-disable */
 // eslint-disable-next-line 
 export default {
+	data(){
+		return {
+			captchaSrc:''
+		}
+	},
 	methods:{
 		validateForm(name){
 			return new Promise((resolve,reject)=>{
