@@ -27,7 +27,6 @@ const mutations={
 const actions={
 	getProfile({commit}){
 		api.getUserProfile().then(res=>{
-			console.log(res)
 			commit(types.SET_USER_PROFILE,{
 				profile:res.data.data||{}
 			})
@@ -38,7 +37,6 @@ const actions={
 			profile:{}
 		})
 		storage.clear()
-		console.log('ddd')
 	}
 }
 

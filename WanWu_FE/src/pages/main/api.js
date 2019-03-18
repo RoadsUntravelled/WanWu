@@ -26,8 +26,8 @@ export default {
         }
       })
     },
-    profile(){
-      return ajax('profile/','GET',{params:{user:'sssddd'}})
+    getCaptcha(){
+      return ajax('captcha/','GET')
     }
 }
 

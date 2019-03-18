@@ -28,7 +28,7 @@
                     </div>
                     <div class="captcha-img">
                         <Tooltip content="刷新验证码" placement="top">
-                            <img src="../../../../assets/logo.png" height="40" width="100" />
+                            <img :src="captchaSrc" @click="getCaptchaSrc" height="40" width="100" />
                         </Tooltip>
                     </div>
                 </div>
@@ -47,6 +47,9 @@ import api from '@main/api'
 import {mapGetters,mapActions}from 'vuex'
 export default {
 	mixins:[FormMixin, ModalMixin],
+	mounted() {
+		this.getCaptchaSrc()
+	},
 	data(){
 		return{
 			btnloading:false,
@@ -81,10 +84,15 @@ export default {
 					this.btnloading=false
 					this.changeModal({visible:false})
 					this.getProfile()
-					console.log(this.isAuthenticated)
 				}).catch(_=>{
+					this.getCaptchaSrc()
 					this.btnloading=false
+					this.loginData.captcha=''
 				})
+			}).catch(_=>{
+					this.getCaptchaSrc()
+					this.btnloading=false
+					this.loginData.captcha=''
 			})
 		}
 	},

@@ -90,6 +90,6 @@ class BaseView(View):
             if e.err:
                 param["err" ] =e.err
             return self.error(**param)
-        except Exception as e:
-            return self.server_error()
+        #except Exception as e:
+        #   return self.server_error()
 

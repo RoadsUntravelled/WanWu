@@ -11,7 +11,7 @@ margin-left:50px;
 .captcha-size input{
 	width:160px!important;
 }
-.icon-input input:focus,.icon-input input:hover{
+.input-container input:focus,.input-container input:hover{
 	box-shadow:0 1px #57a3f3!important;  
 	outline:none!important;
 	border-color:none!important;
@@ -25,7 +25,7 @@ margin-left:50px;
   	flex:auto;
   }
   .captcha-img {
-    margin-left:0%;
+    margin-left:10px;
     padding: 3px;
     flex: initial;
   }
